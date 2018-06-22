@@ -30,7 +30,7 @@ button {
 
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
   color: #ccc; }
-input{-webkit-appearance:none;}
+/*input{-webkit-appearance:none;}*/
 
 .router-link-active{
     color:red;

@@ -1,8 +1,9 @@
 <template>
-    <div>
-        <p><label for="username">用户名</label><input type='text' placeholder='请输入手机号' name='username' v-model='username'/></p>
-        <p><label for="password">密码</label><input type='password' name='password' placeholder='请输入6位以上数字' v-model='password'/></p>
-        <p><label for="passwordr">密码</label><input type='password' v-model='passwordr'/></p>
+    <div class='register'>
+        <h1>注册</h1>
+        <p><label for="username">用户名:</label><input type='text' placeholder='请输入手机号' name='username' v-model='username'/></p>
+        <p><label for="password">密 码:</label><input type='password' name='password' placeholder='请输入6位以上数字' v-model='password'/></p>
+        <p><label for="passwordr">密 码:</label><input type='password' v-model='passwordr'/></p>
         <button @click='register'>注册</button>
         
     </div>
@@ -50,6 +51,38 @@
     }
      
 </script>
-<style lang="">
-    
+<style scoped>
+.register{
+    width:100%;
+    position:absolute;
+    top:0;
+    bottom:0;
+    background:#fff;
+}
+h1{
+    text-align:center;
+    line-height:1.5rem;
+    font-size:.5rem;
+    font-weight:bold;
+    color:orange;
+}
+    label{
+        font-size:.3rem;
+        margin-left:.2rem;
+    }
+    input{
+        width:80%;
+        height:.8rem;
+        margin-top:.2rem;
+    }
+    button{
+        width:80%;
+        height:.8rem;
+        margin-lefT:10%;
+        margin-top:.3rem;
+        background:orange;
+        border:0;
+        border-radius:.2rem;
+        color:#fff;
+    }
 </style>

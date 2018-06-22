@@ -10,6 +10,7 @@ import My from '../component/my'
 import Detail from '../component/Detail/detail'
 import Login from '../component/login/login'
 import Register from '../component/register/register'
+import {getCookie} from '../component/until/util'
 
 Vue.use(Router)
 
@@ -73,6 +74,19 @@ let router = new Router({
             component:Register
         }
     ]
+})
+
+router.beforeEach((to,from,next)=>{
+    if(to.name=='my' || to.name=='shop'){
+        let tooken = getCookie('token')
+        if(!tooken){
+            next({name:'login',query:{from:to.name}})
+        }else{
+            next()
+        }
+    }else{
+        next()  
+    }
 })
 
 export default router

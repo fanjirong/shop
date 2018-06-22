@@ -4,11 +4,12 @@
         <dd>
             <h1>{{list.wname}}</h1>
             <h2>{{list.jdPrice}}</h2>
-            <h3><i class='icon iconfont icon-gouwuche'></i></h3>
+            <h3><i class='icon iconfont icon-gouwuche' @click.stop='addshop'></i></h3>
         </dd>
     </dl>
 </template>
 <script>
+import {getCookie} from '../until/util'
     export default {
         props:{
             list:{
@@ -17,18 +18,31 @@
         },
         methods:{
             toDetail(){
-                console.log(this.list)
                 this.$router.push({
                     name:'detail',
                     query:{
                         url:encodeURIComponent(this.list.clickUrl)
                     }
                 })
+            },
+            addshop(){
+                this.$http.post('/api/addshop',{
+                    token:getCookie('token'),
+                    list:this.list
+                }).then((res)=>{
+                    if(res.code==0){
+                        this.$router.push({
+                            name:'login'
+                        })
+                    }else{
+                        console.log(res.msg)
+                    }
+                })
             }
         }
     }
 </script>
-<style lang="">
+<style scoped>
     dl{
         width:100%;
         position:relative;
@@ -64,6 +78,10 @@
     }
     dl dd h3{
         position:absolute;
-        right:.2rem;bottom:.2rem;
+        right:.2rem;
+        bottom:.2rem;
+    }
+    dl dd h3 .icon{
+        font-size:.3rem;
     }
 </style>
