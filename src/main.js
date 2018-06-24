@@ -10,6 +10,11 @@ import Loading from 'vue-lazyload'
 import store from './component/store/store'
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
+import Toast from '../src/plugins/toast/toast'
+Vue.use(Toast,{
+  name:'toast',
+  timeout:2000
+})
 
 
 Vue.use(Loading,{

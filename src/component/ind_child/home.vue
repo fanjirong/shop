@@ -36,11 +36,12 @@
             <div class='wrap' ref='con'>
                 <ol>
                     <li v-for='item in list'>
-                        <Content :list='item'></Content>
+                        <Content :list='item' :instance='$refs.add'></Content>
                     </li>
                 </ol>
                 <p>{{msg}}</p>
             </div>
+            <Toast ref='add'></Toast>
         </div>
     </div>
 </template>

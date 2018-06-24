@@ -62,7 +62,7 @@ module.exports = function(app){
              }
         })
         if(flag){
-            let token = jwt.sign(req.body,'1601E',{expiresIn:60*60})
+            let token = jwt.sign(req.body,'1601E',{expiresIn:60*60*60})
             res.json({
                 msg:'sucess',
                 code:1,
@@ -164,15 +164,12 @@ module.exports = function(app){
                 })
             }else{
                 let shoplist=JSON.parse(fs.readFileSync(__dirname+'/shoplist/shoplist.json','utf-8'))
-
                 let goodslist = shoplist[decoded.username];
                 goodslist = goodslist.map((item,index)=>{
                     if(item.wname==req.body.name){
                         item.count = req.body.count
                     }
                 })
-                
-                    
                 fs.writeFile(__dirname+'/shoplist/shoplist.json',JSON.stringify(shoplist),(err)=>{
                     if(err){
                          res.json({

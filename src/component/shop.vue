@@ -5,10 +5,12 @@
             <span @click='bianji'>{{type}}</span>
         </header>
         <section>
-            <div v-show='data.length==0'>您的购物车啥也没有</div>
-            <shopitem v-for='(data,index) in data' :datas='data' v-on:updata='fetchlist' :key='index'></shopitem>
+            <aside>
+                <div v-show='data.length==0'>您的购物车啥也没有</div>
+                <shopitem v-for='(data,index) in data' :datas='data' v-on:updata='fetchlist' :key='index'></shopitem>
+            </aside>
             <div class='bottom'>
-                <span :class="flag?'iconfont icon-xuanzhong-01':'iconfont icon-weixuanzhong-01'" @click='checkall'></span>全选/反选
+                <span :class="flag?'iconfont icon-xuanzhong-01':'iconfont icon-weixuanzhong-01'" @click='checkall'></span>  全选/反选
                 总计：{{sums}}
                 <button @click='next'>{{types}}</button>
             </div>
@@ -31,9 +33,6 @@ export default {
     },
     created(){
         this.fetchlist()
-        this.$on('updata',function(){
-            console.log('updata')
-        })
         
     },
     mounted(){
@@ -45,8 +44,8 @@ export default {
     },
     methods:{
         sumup(){
-            return Object.values(this.list).reduce((init,item)=>{
-                return this.sums = init+item
+             this.sums = Object.values(this.list).reduce((init,item)=>{
+                return init+item
             },0)
         },
         bianji(){
@@ -57,7 +56,6 @@ export default {
                 this.types = '结算',
                 this.type = '编辑'
             }
-            
         },
         checkall(){
             this.flag=!this.flag
@@ -123,6 +121,12 @@ export default {
         position:relative;
     }
     section{
+        width:100%;
+        flex:1;
+        display:flex;
+        flex-direction: column;
+    }
+    aside{
         flex:1;
         overflow-y:scroll;
     }
@@ -137,11 +141,14 @@ export default {
     .bottom{
         width:100%;
         height:1rem;
-        position:absolute;
-        bottom:0;
         background:orange;
         line-height:1rem;
         font-size:.3rem;
+        color:#fff;
+    }
+    .bottom span{
+        margin-lefT:.2rem;
+        color:#000;
     }
     button{
         background:red;

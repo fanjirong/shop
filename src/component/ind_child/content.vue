@@ -1,12 +1,14 @@
 <template>
-    <dl @click='toDetail'>
-        <dt><img v-lazy="list.imageurl" alt=""></dt>
-        <dd>
-            <h1>{{list.wname}}</h1>
-            <h2>{{list.jdPrice}}</h2>
-            <h3><i class='icon iconfont icon-gouwuche' @click.stop='addshop'></i></h3>
-        </dd>
-    </dl>
+    <div>
+        <dl @click='toDetail'>
+            <dt><img v-lazy="list.imageurl" alt=""></dt>
+            <dd>
+                <h1>{{list.wname}}</h1>
+                <h2>{{list.jdPrice}}</h2>
+                <h3><i class='icon iconfont icon-gouwuche' @click.stop='addshop'></i></h3>
+            </dd>
+        </dl>
+    </div>
 </template>
 <script>
 import {getCookie} from '../until/util'
@@ -14,6 +16,9 @@ import {getCookie} from '../until/util'
         props:{
             list:{
                 type:Object
+            },
+            instance:{
+
             }
         },
         methods:{
@@ -35,7 +40,8 @@ import {getCookie} from '../until/util'
                             name:'login'
                         })
                     }else{
-                        console.log(res.msg)
+                        //this.instance.active('添加成功')
+                        this.$toastBus.$emit('toast','添加成了')
                     }
                 })
             }

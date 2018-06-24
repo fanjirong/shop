@@ -13,7 +13,6 @@
                 </div>
             </dd>
         </dl>
-        
     </div>
 </template>
 <script>
@@ -31,7 +30,11 @@ import {getCookie,bus} from './until/util'
         watch:{
             flag(n,o){
                 bus.$emit('goodschecked',{name:this.datas.wname,pri:n?this.datas.count*this.datas.jdPrice:0})
+            },
+            datas(n,o){
+                 bus.$emit('goodschecked',{name:this.datas.wname,pri:this.flag?this.datas.count*this.datas.jdPrice:0}) 
             }
+            
         },
         mounted(){
             bus.$on('checkAll',(checkall)=>{
@@ -46,6 +49,7 @@ import {getCookie,bus} from './until/util'
             minus(){
                 // if(datas.count<=1) return 
                 // datas.count--;
+                
                 let count = this.datas.count;
                 if(count-1<1) return 
                 this.$http.post('/api/shop/count',{
@@ -55,8 +59,6 @@ import {getCookie,bus} from './until/util'
                 }).then(res=>{
                     if(res.code==1){
                         this.$emit('updata')
-                        bus.$emit('goodschecked',{name:this.datas.wname,pri:this.flag?this.datas.count*this.datas.jdPrice:0})
-                        
                     }
                 })
             },
@@ -72,13 +74,8 @@ import {getCookie,bus} from './until/util'
                 }).then(res=>{
                     if(res.code==1){
                         this.$emit('updata')
-                        bus.$emit('goodschecked',{name:this.datas.wname,pri:this.flag?this.datas.count*this.datas.jdPrice:0})
-                        
-                    }
+                     }
                 })
-            },
-            checked(){
-                flag=true;
             }
         }
     }
@@ -123,8 +120,5 @@ h2{
 span {
     margin-top:1.3rem;
     margin-left:.2rem;
-    
 }
-
-
 </style>
