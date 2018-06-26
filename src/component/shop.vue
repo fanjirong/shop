@@ -72,6 +72,7 @@ export default {
                             arr.push(i)
                         }
                     }
+                    console.log(arr)
                     this.$http.post('/api/shop/del',{
                         token:getCookie('token'),
                         name:arr
@@ -159,5 +160,12 @@ export default {
         font-size:.28rem;
         position:absolute;
         right:0;
+    }
+    .icon-xuanzhong-01,
+    .icon-weixuanzhong-01{
+        font-size:.5rem;
+    }
+    .icon-xuanzhong-01{
+        color:red;
     }
 </style>

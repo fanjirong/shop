@@ -11,6 +11,13 @@ import Detail from '../component/Detail/detail'
 import Login from '../component/login/login'
 import Register from '../component/register/register'
 import {getCookie} from '../component/until/util'
+import Manage from '../component/manage/manage'
+import All from '../component/manage/all'
+import Alls from '../component/manage/alls'
+import Exit from '../component/exit/exit'
+import Addaddr from '../component/addaddr/addaddr'
+import Addadmin from '../component/addaddr/addadmin'
+
 
 Vue.use(Router)
 
@@ -68,10 +75,42 @@ let router = new Router({
             name:'login',
             component:Login
         },
-         {
+        {
             path:'/register',
             name:'register',
             component:Register
+        },
+        {
+            path:'/manage',
+            name:'manage',
+            component:Manage,
+            children:[
+                {
+                    path:'all',
+                    name:'all',
+                    component:All
+                },
+                {
+                    path:'alls',
+                    name:'alls',
+                    component:Alls
+                }
+            ]
+        },
+        {
+            path:'/exit',
+            name:'exit',
+            component:Exit
+        },
+        {
+            path:'/addaddr',
+            name:'addaddr',
+            component:Addaddr
+        },
+        {
+            path:'/addadmin',
+            name:'addadmin',
+            component:Addadmin
         }
     ]
 })
@@ -88,5 +127,7 @@ router.beforeEach((to,from,next)=>{
         next()  
     }
 })
+
+
 
 export default router

@@ -8,7 +8,7 @@ module.exports = function(app){
     app.get('/index/recommend.action',(req,res)=>{
        // console.log(res.query)
         if(req.query.page>5){
-             res.json({
+            res.json({
                 code:1000,
                 msg:'没有更多数据了'
             })
@@ -205,15 +205,19 @@ module.exports = function(app){
                 let shoplist=JSON.parse(fs.readFileSync(__dirname+'/shoplist/shoplist.json','utf-8'))
                 let goodslist = shoplist[decoded.username];
                 let del = [];
-                goodslist = goodslist.forEach((item,index)=>{
-                    req.body.name.forEach((v,i)=>{
-                        if(item.wname==v){
-                            del.push(index);
-                        }
-                    })
+                let goodslists = goodslist.forEach((item,index)=>{
+                     req.body.name.forEach((v,i)=>{
+                         if(item.wname==v){
+                             del.push(index);
+                             del.forEach((ii)=>{
+                                 if(index == ii){
+                                     goodslist.splice(ii,1)
+                                 }
+                             })
+                         }
+                     })
                 })
-
-                //goodslist.splice(del,1)
+                 console.log(goodslists)
                 fs.writeFile(__dirname+'/shoplist/shoplist.json',JSON.stringify(shoplist),(err)=>{
                     if(err){
                         res.json({
@@ -229,5 +233,37 @@ module.exports = function(app){
                 })
             }
         }) 
+    })
+
+    app.post('/api/getcity',(req,res)=>{   //获取地址
+        console.log(req.body)
+        let addlist = JSON.parse(fs.readFileSync(__dirname+'/city/add.json','utf-8'))
+        jwt.verify(req.body.token,'1601E',function(err,decoded){
+            if(err){
+                res.json({
+                    code:0,
+                    msg:'登录超时，请重新登录'
+                })
+            }else{
+                if(addlist[decoded.username]){
+                    addlist[decoded.username].push(req.body.data)
+                }else{
+                    addlist[decoded.username]=[req.body.data]
+                }
+                fs.writeFile(__dirname+'/city/add.json',JSON.stringify(addlist),(err)=>{
+                    if(err){
+                         res.json({
+                            code:2,
+                            msg:'写入错误'
+                        })
+                    }else{
+                         res.json({
+                            code:1,
+                            msg:'保存成功'
+                        })
+                    }
+                })
+            }
+        })
     })
 }

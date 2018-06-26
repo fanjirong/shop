@@ -34,7 +34,6 @@ import {getCookie,bus} from './until/util'
             datas(n,o){
                  bus.$emit('goodschecked',{name:this.datas.wname,pri:this.flag?this.datas.count*this.datas.jdPrice:0}) 
             }
-            
         },
         mounted(){
             bus.$on('checkAll',(checkall)=>{
@@ -49,7 +48,6 @@ import {getCookie,bus} from './until/util'
             minus(){
                 // if(datas.count<=1) return 
                 // datas.count--;
-                
                 let count = this.datas.count;
                 if(count-1<1) return 
                 this.$http.post('/api/shop/count',{
@@ -96,13 +94,18 @@ img{
     margin:.3rem;
 }
 h1{
-    margin-top:.2rem;
+    margin-top:.5rem;
     line-height:.4rem;
     font-size:.3rem;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 h2{
     color:red;
-    margin-top:.3rem;
+    margin-top:.8rem;
     font-size:.3rem;
 }
 .com{
@@ -120,5 +123,13 @@ h2{
 span {
     margin-top:1.3rem;
     margin-left:.2rem;
+}
+
+.icon-xuanzhong-01,
+.icon-weixuanzhong-01{
+    font-size:.5rem;
+}
+.icon-xuanzhong-01{
+    color:red;
 }
 </style>

@@ -6,20 +6,23 @@
             <a  href="#"><i @click='set3' class='icon iconfont icon-xiaoxi'></i></a>
         </header>
         <section>
-            <div class='messige'>路飞</div>
+            <div class='messige'>
+                <p><img src="../../static/images/1.png" alt=""></p>
+                 路飞
+            </div>
             <div class='myshop'>
                 <h1>我的店铺</h1>
             </div>
             <ul>
-                <li><i class='iconfont icon-gongzuo'></i>待付款</li>
-                <li><i class='iconfont icon-gongzuojilu'></i>待发货</li>
+                <li @click='manage'><i class='iconfont icon-gongzuo'></i>待付款</li>
+                <li @click='manage'><i class='iconfont icon-gongzuojilu'></i>待发货</li>
                 <li><i class='iconfont icon-daishouhuo-01'></i>待收货</li>
                 <li><i class='iconfont icon-bianji1'></i>售后</li>
                 <li><i class='iconfont icon-wodedingdan'></i>我的订单</li>
             </ul>
             <ol>
                 <li>账号余额</li>
-                <li>地址管理</li>
+                <li @click='addaddr'>地址管理</li>
                 <li>我的客服</li>
             </ol>
             <Toast ref='toast'></Toast>
@@ -35,13 +38,26 @@
         },
         methods:{
             set(){
-                this.$refs.toast.active('are you sure ?')
+                this.$router.push({
+                    name:'exit'
+                })
+                //this.$refs.toast.active('are you sure ?')
             },
             set2(){
                 this.$refs.toast.active('yes')
             },
             set3(){
                 this.$refs.toast.active('ok')
+            },
+            manage(){
+                this.$router.push({
+                    name:'manage'
+                })
+            },
+            addaddr(){
+                this.$router.push({
+                    name:'addaddr'
+                })
             }
         }
     }
@@ -73,8 +89,14 @@
         height:2.5rem;
         background:orange;
         text-align:center;
-        line-height:3rem;
+        line-height:.5rem;
         font-size:.3rem;
+    }
+    .messige img{
+        width:1rem;
+        height:1rem;
+        border-radius:50%;
+        margin-top:.6rem;
     }
     .myshop{
         width:100%;

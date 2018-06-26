@@ -27,7 +27,7 @@ let store = new Vuex.Store({
     modules:{}
 })
 
-store.subscribe(()=>{
+store.subscribe(()=>{  //调用此方法返回的函数即可停止订阅
     console.log(store.state.list)
 })
 
