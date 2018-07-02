@@ -6,7 +6,10 @@
         <ul>
             <li>
                 <span>我的头像</span>
-                <b>路飞</b>
+                <b>
+                    <img :src="url" alt="">
+                    <input type="file" class='file-input' @change='fileUpload'>
+                </b>
             </li>
             <li>
                 <span>用户名</span>
@@ -22,11 +25,11 @@
     </div>
 </template>
 <script>
-import {delCookie} from '../../component/until/util'
+import {delCookie,getCookie} from '../../component/until/util'
 export default {
     data(){
         return {
-
+            url:'../../../static/images/1.png'
         }
     },
     methods:{
@@ -40,6 +43,14 @@ export default {
                     })
                 },2000)
             }
+        },
+        fileUpload(e){
+            let fd = new FormData();
+            fd.append('img',e.target.files[0])
+            this.$http.post('/api/fileup',fd).then((res)=>{
+                console.log(res)
+                this.url = res.url
+            })
         }
     }
 }
@@ -70,16 +81,19 @@ export default {
         margin-top:.2rem;
     }
     ul li{
-        line-height:.8rem;
+        line-height:1.2rem;
         padding-left:.1rem;
+        border-bottom:1px solid #ccc;
+        position:relative;
     }
     ul li span{
         font-size:.3rem;
     }
     ul li b{
-        float:right;
-        margin-right:.1rem;
-        font-size:.3rem;
+       position:absolute;
+       top:0;
+       right:.1rem;
+       font-size:.3rem;
     }
     button{
         width:70%;
@@ -91,5 +105,17 @@ export default {
         border-radius:.2rem;
         color:#fff;
         font-size:.3rem;
+    }
+    img{
+        width:1rem;
+        height:1rem;
+        border-radius:50%;
+        margin-top:.1rem;
+    }
+    .file-input{
+        position:absolute;
+        top:.4rem;
+        width:1rem;
+        opacity:0;
     }
 </style>

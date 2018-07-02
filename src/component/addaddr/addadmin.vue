@@ -47,6 +47,15 @@ import {getCookie} from '../.././component/until/util'
       }
     },
     mounted(){
+        let {type,name,phone,province,city,county,address} = this.$route.query;
+        if(type=='bj'){
+            this.name = name
+            this.phone = phone
+            this.province = {name:decodeURI(province)}
+            this.city = {name:city}
+            this.county = county
+            this.address = address
+        }
         axios.get('../../../static/server/city/city.json').then((res)=>{
             this.provinces = res.data;
         })

@@ -16,7 +16,7 @@ let Toast = {
         let mixin = [  //创建混入对象
             {
                 created(){
-                    console.log('toast created')
+                   
                 }
             }
         ]

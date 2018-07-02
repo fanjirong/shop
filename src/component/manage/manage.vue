@@ -1,20 +1,17 @@
 <template>
     <div class='wrap'>
         <header> 
-            <a href="#" onclick="javascript:history.back(-1);"><</a>
+            <a href="#"><</a>
             <b>订单管理</b>
             <a href=""></a>
         </header>
         <ul>
-            <li><router-link :to="{name:'all'}">全部</router-link></li>
-            <li><router-link :to="{name:'alls'}">代付款</router-link></li>
-            <li><router-link :to="{name:'all'}">代发货</router-link></li>
-            <li><router-link :to="{name:'all'}">待收货</router-link></li>
-            <li><router-link :to="{name:'all'}">待评价</router-link></li>
+            <li><router-link replace :to="{name:'manage',params:{type:'all'}}">全部</router-link></li>
+            <li><router-link replace :to="{name:'manage',params:{type:'todfk'}}">代付款</router-link></li>
+            <li><router-link replace :to="{name:'manage',params:{type:'todfh'}}">代发货</router-link></li>
+            <li><router-link replace :to="{name:'manage',params:{type:'todsh'}}">待收货</router-link></li>
+            <li><router-link replace :to="{name:'manage',params:{type:'alls'}}">待评价</router-link></li>
         </ul>
-        <div>
-            <router-view></router-view>
-        </div>
     </div>
 </template>
 <script>
@@ -23,6 +20,9 @@ export default {
         return {
 
         }
+    },
+    mounted(){
+        console.log(this.$route.params.type)
     },
     methods:{
         all(){

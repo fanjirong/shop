@@ -1,6 +1,21 @@
 const fs = require('fs')
 const path = require('path')
 const jwt = require('jsonwebtoken')
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.resolve(__dirname+'/upload'))
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now()+'.'+file.originalname.split('.')[1])
+  }
+});
+ 
+const upload = multer({ storage: storage })
+// const upload = multer({
+//     dest:path.resolve(__dirname+'/upload')
+// })
 //定义接口
 module.exports = function(app){
     //首页商品列表
@@ -206,18 +221,18 @@ module.exports = function(app){
                 let goodslist = shoplist[decoded.username];
                 let del = [];
                 let goodslists = goodslist.forEach((item,index)=>{
-                     req.body.name.forEach((v,i)=>{
-                         if(item.wname==v){
-                             del.push(index);
-                             del.forEach((ii)=>{
+                      req.body.name.forEach((v,i)=>{
+                          if(item.wname==v){
+                              del.push(index);
+                              del.forEach((ii)=>{
                                  if(index == ii){
                                      goodslist.splice(ii,1)
                                  }
-                             })
-                         }
-                     })
+                              })
+                          }
+                      })
                 })
-                 console.log(goodslists)
+                
                 fs.writeFile(__dirname+'/shoplist/shoplist.json',JSON.stringify(shoplist),(err)=>{
                     if(err){
                         res.json({
@@ -236,7 +251,6 @@ module.exports = function(app){
     })
 
     app.post('/api/getcity',(req,res)=>{   //获取地址
-        console.log(req.body)
         let addlist = JSON.parse(fs.readFileSync(__dirname+'/city/add.json','utf-8'))
         jwt.verify(req.body.token,'1601E',function(err,decoded){
             if(err){
@@ -264,6 +278,65 @@ module.exports = function(app){
                     }
                 })
             }
+        })
+    })
+
+    app.post('/api/addcity',(req,res)=>{   //添加地址
+        let addlist = JSON.parse(fs.readFileSync(__dirname+'/city/add.json','utf-8'))
+        jwt.verify(req.body.token,'1601E',function(err,decoded){
+            if(err){
+                res.json({
+                    code:0,
+                    msg:'登录超时，请重新登录'
+                })
+            }else{
+                res.json({
+                    code:1,
+                    msg:'请求成功',
+                    data:addlist[decoded.username]
+                })
+            }
+        })
+    })
+
+    app.post('/api/delcity',(req,res)=>{  //删除城市
+        jwt.verify(req.body.token,'1601E',function(err,decoded){
+            if(err){
+                res.json({
+                    code:0,
+                    msg:'登录超时，请重新登录'
+                })
+            }else{
+                let addlist = JSON.parse(fs.readFileSync(path.resolve(__dirname,'city/add.json'),'utf-8'))
+                let addlists = addlist[decoded.username];
+                addlists.map((item,index)=>{
+                    if(req.body.ind === index){
+                        addlists.splice(index,1)
+                    }
+                })
+                fs.writeFile(path.resolve(__dirname,'city/add.json'),JSON.stringify(addlist),(err)=>{
+                    if(err){
+                         res.json({
+                            code:2,
+                            msg:'写入错误'
+                        })
+                    }else{
+                         res.json({
+                            code:1,
+                            msg:'删除成功'
+                        })
+                    }
+                })
+            }   
+        })
+    })
+
+    app.post('/api/fileup',upload.single("img"),(req,res)=>{  //文件上传的接口
+        console.log(req.file)
+        res.json({
+            code:1,
+            msg:'success',
+            url:'http://localhost:3000/server/upload/'+req.file.filename
         })
     })
 }

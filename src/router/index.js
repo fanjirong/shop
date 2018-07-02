@@ -4,6 +4,7 @@ import Index from '../component/index'
 import Home from '../component/ind_child/home'
 import Search from '../component/search'
 import Fenlei from '../component/fenlei'
+//const Fenlei = import('../component/fenlei.vue')
 import Shejiao from '../component/shejiao'
 import Shop from '../component/shop'
 import My from '../component/my'
@@ -13,7 +14,6 @@ import Register from '../component/register/register'
 import {getCookie} from '../component/until/util'
 import Manage from '../component/manage/manage'
 import All from '../component/manage/all'
-import Alls from '../component/manage/alls'
 import Exit from '../component/exit/exit'
 import Addaddr from '../component/addaddr/addaddr'
 import Addadmin from '../component/addaddr/addadmin'
@@ -81,21 +81,9 @@ let router = new Router({
             component:Register
         },
         {
-            path:'/manage',
+            path:'/manage/:type',
             name:'manage',
-            component:Manage,
-            children:[
-                {
-                    path:'all',
-                    name:'all',
-                    component:All
-                },
-                {
-                    path:'alls',
-                    name:'alls',
-                    component:Alls
-                }
-            ]
+            component:Manage
         },
         {
             path:'/exit',
@@ -111,7 +99,12 @@ let router = new Router({
             path:'/addadmin',
             name:'addadmin',
             component:Addadmin
-        }
+        },
+        // {
+        //     path:'/all',
+        //     name:'all',
+        //     component:All
+        // }
     ]
 })
 

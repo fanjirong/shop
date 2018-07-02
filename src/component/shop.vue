@@ -23,7 +23,7 @@ import shopitem from './shopitem'
 export default {
     data(){
         return {
-            data:[],
+            data:{},
             list:{},
             sums:0,
             flag:false,
@@ -33,12 +33,10 @@ export default {
     },
     created(){
         this.fetchlist()
-        
     },
     mounted(){
         bus.$on('goodschecked',(data)=>{
             this.list[data.name] = data.pri;
-            //console.log(this.list[data.name])
             this.sumup()
         })
     },
@@ -72,12 +70,17 @@ export default {
                             arr.push(i)
                         }
                     }
-                    console.log(arr)
                     this.$http.post('/api/shop/del',{
                         token:getCookie('token'),
                         name:arr
                     }).then((res)=>{
-                        console.log(res)
+                         if(res.code == 1){
+                             this.$http.post('/api/goodslist',{
+                                token:getCookie('token')
+                            }).then((res)=>{
+                                this.data=res.data;
+                            })
+                         }
                     })
                 }
             }

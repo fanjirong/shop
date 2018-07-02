@@ -1,7 +1,16 @@
 const express = require('express')
 const apilist = require('./apilist.js')
 const bodyParser = require('body-parser')
+const path =require('path')
 let app = express();
+
+const ejs = require('ejs')
+app.engine('html',ejs.__express);
+app.set('view engine','html')
+app.use(express.static(path.resolve(process.cwd()+'/../')))
+
+
+
 app.use(bodyParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.all('*',function(req,res,next){
@@ -12,6 +21,10 @@ app.all('*',function(req,res,next){
         'Access-Control-Allow-Methods': 'GET, POST, PUT,DELETE'
     })
     next()
+})
+
+app.get('/',function(req,res,next){
+    res.render('index',{title:'HTML'})
 })
 
 apilist(app)

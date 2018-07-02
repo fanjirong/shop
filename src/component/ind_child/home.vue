@@ -4,9 +4,9 @@
         <div class='middle' @scroll='onScroll' ref='middle'>
              <div class='swiper-container banner' ref='swiper'>
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="../../../static/images/1.png" alt=""></div>
-                    <div class="swiper-slide"><img src="../../../static/images/2.png" alt=""></div>
-                    <div class="swiper-slide"><img src="../../../static/images/3.png" alt=""></div>
+                    <div class="swiper-slide"><img src="../../assets/images/1.png" alt=""></div>
+                    <div class="swiper-slide"><img src="../../assets//images/2.png" alt=""></div>
+                    <div class="swiper-slide"><img src="../../assets//images/3.png" alt=""></div>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -48,9 +48,9 @@
 <script>
     import heads from './header'
     import Content from './content'
-    import Swiper from 'swiper'
+    import Swiper from 'swiper/dist/js/swiper.min.js'
     import 'swiper/dist/css/swiper.css'
-    import 'swiper/dist/js/swiper.js'
+    
     export default {
         name:"",
         data(){

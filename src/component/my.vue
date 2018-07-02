@@ -2,23 +2,23 @@
     <div class='box'>
         <header>
             <a href="#"><i class='icon iconfont icon-set' @click='set'></i></a>    
-            <b @click='set2'>我的717商城</b>
-            <a  href="#"><i @click='set3' class='icon iconfont icon-xiaoxi'></i></a>
+            <b>我的717商城</b>
+            <a  href="#"><i class='icon iconfont icon-xiaoxi'></i></a>
         </header>
         <section>
             <div class='messige'>
-                <p><img src="../../static/images/1.png" alt=""></p>
+                <p><img src="../../src/assets/images/1.png" alt=""></p>
                  路飞
             </div>
             <div class='myshop'>
                 <h1>我的店铺</h1>
             </div>
             <ul>
-                <li @click='manage'><i class='iconfont icon-gongzuo'></i>待付款</li>
-                <li @click='manage'><i class='iconfont icon-gongzuojilu'></i>待发货</li>
-                <li><i class='iconfont icon-daishouhuo-01'></i>待收货</li>
-                <li><i class='iconfont icon-bianji1'></i>售后</li>
-                <li><i class='iconfont icon-wodedingdan'></i>我的订单</li>
+                <li @click='manage("todfk")'><i class='iconfont icon-gongzuo'></i>待付款</li>
+                <li @click='manage("todfh")'><i class='iconfont icon-gongzuojilu'></i>待发货</li>
+                <li @click='manage("todsh")'><i class='iconfont icon-daishouhuo-01'></i>待收货</li>
+                <li @click='manage("tosh")'><i class='iconfont icon-bianji1'></i>售后</li>
+                <li @click='manage("tomydd")'><i class='iconfont icon-wodedingdan'></i>我的订单</li>
             </ul>
             <ol>
                 <li>账号余额</li>
@@ -41,17 +41,13 @@
                 this.$router.push({
                     name:'exit'
                 })
-                //this.$refs.toast.active('are you sure ?')
             },
-            set2(){
-                this.$refs.toast.active('yes')
-            },
-            set3(){
-                this.$refs.toast.active('ok')
-            },
-            manage(){
+            manage(type){
                 this.$router.push({
-                    name:'manage'
+                    name:'manage',
+                    params:{
+                        type:type
+                    }
                 })
             },
             addaddr(){

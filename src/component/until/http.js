@@ -1,11 +1,17 @@
 import Vue from 'vue'
 import axios from 'axios'
+console.log(process.env.NODE_ENV)
+
+//测试服务器t
+const testurl = '192.168.43.8:3000'
+const onlineurl = '192.168.43.8:3000' || 'http://m.jd.com'
 
 let instance = axios.create({   //创建实例
     header:{
-       // "Accept-Content":"application/json"
+        "Content-Type":"application/json"
     },
-    baseURL:'http://localhost:3000'
+    baseUR:testurl
+    //baseURL:process.env.NODE_ENV==='production'?onlineurl:testurl
 })
 
 instance.interceptors.request.use((config)=>{  //添加一个请求拦截器

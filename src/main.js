@@ -12,7 +12,7 @@ Vue.use(Toast,{
 
 import Loading from 'vue-lazyload'
 Vue.use(Loading,{  //图片懒加载
-  loading:'../static/images/loading.gif'
+  loading:'../src/assets/images/loading.gif'
 })
 
 import elementui from 'element-ui'
